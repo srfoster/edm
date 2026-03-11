@@ -1,0 +1,57 @@
+// "Violin Shots" by Vigorous.elbows
+
+var scale = "d:minor"
+
+$: stack(
+  n("[0] [3 2] [4 <2 6>]".fast(2)).sound("supersaw").cutoff(perlin.range(5000,8000)),
+  n("0 5 3 5"
+    .slow(4)
+    .octave(-2)
+    .sound("supersaw")
+    .hard(.6)
+    .gain(.6)
+    .att(.25)
+    .cutoff(perlin.range(5000,8000))
+    
+    //.seg(6)
+   ) 
+  .orbit(2)
+)
+.scale(scale)
+
+._punchcard()
+$: stack(
+  s("bd:4").hard(.5).room(1).color("coral"),
+  s("sd:3").late(.5).room(1).gain(.4).color("salmon"),
+  s("sh:2*2").lpf("20000 6000").fast(6).color("tomato").orbit(2)
+)
+  
+._punchcard()
+
+$: n(irand("<12 4>".slow(8))).struct("<[x*2 -] x*3>")
+  .fast(4)
+  .scale(scale)
+  .sound("sax_stacc")
+  .degradeBy(.25)
+  .room(1.5)
+  .delay(.4)
+  .gain(.5)
+  //.oct("2, 0")
+  .orbit(2)
+._punchcard()
+$: s("num")
+  .n("1|2|3|4|5|6|7|8|9|0")
+  .fast(2)
+  .compressor("-20:20:0:.002:.02")
+  .hpf(slider(1776,0,2000))
+  .hard(3)
+  //.late(.125)
+  .soft(2)
+  .delay(.3)
+  .someCyclesBy(.85, x=>x.degradeBy(1))
+  .duck(2)
+  .duckatt(.4)
+  .duckdepth(.5)
+  .room(1)
+  .gain(slider(0.113,0,1))
+._punchcard()
